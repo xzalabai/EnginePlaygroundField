@@ -21,7 +21,6 @@
 #include "MainWindow.h"
 #include "Graphics.h"
 #include "Vec2.h"
-#include "Mat.h"
 #include "DXErr.h"
 #include "ChiliException.h"
 #include "Colors.h"
@@ -371,17 +370,13 @@ void Graphics::DrawLine(Vec2<float> p0, Vec2<float> p1, Color color)
 
 }
 
-void Graphics::DrawPolyLine(const vector<Vec2<float>>& vectorModel, Mat<float> transformMatrix, Color color)
+void Graphics::DrawPolyLine(const vector<Vec2<float>>& vectorModel, Color color)
 {
-	const Vec2<float> front = transformMatrix * vectorModel.front();
-	Vec2<float> cur = front;
-	for (auto i = vectorModel.begin(); i != std::prev(vectorModel.end()); i++)
+	for (auto& it = vectorModel.begin(); it != prev(vectorModel.end()); ++it)
 	{
-		const Vec2<float> next = transformMatrix * *std::next(i);
-		DrawLine(cur, next, color);
-		cur = next;
+		DrawLine(*it, *(next(it)), color);
 	}
-	DrawLine(cur, front, color);
+	DrawLine(vectorModel.front(), vectorModel.back(), color);
 }
 
 

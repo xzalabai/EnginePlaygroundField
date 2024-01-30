@@ -21,7 +21,6 @@
 #pragma once
 #include "ChiliWin.h"
 #include "Vec2.h"
-#include "Mat.h"
 #include <d3d11.h>
 #include <wrl.h>
 #include "ChiliException.h"
@@ -63,7 +62,7 @@ public:
 	}
 	void PutPixel( int x,int y,Color c );
 	void DrawLine(class Vec2<float> p1, Vec2<float> p2, Color color);
-	void DrawPolyLine(const vector<Vec2<float>>& vectorModel, class Mat<float> transformMatrix, Color color);
+	void DrawPolyLine(const vector<Vec2<float>>& vectorModel, Color color);
 	~Graphics();
 private:
 	Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;

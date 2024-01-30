@@ -1,7 +1,6 @@
 #pragma once
 #include "Vec2.h"
 #include "Colors.h"
-#include "Mat.h"
 #include "Drawable.h"
 #include <vector>
 
@@ -39,15 +38,13 @@ public:
 	Drawable GetDrawable() const
 	{
 		Drawable drw(model, color);
-		drw.ApplyTransformation(Mat<float>::Translate(position) * Mat<float>::Scale(scale));
-		//drw.Scale(scale);
-		//drw.Translate(position);
+		drw.Scale(scale);
+		drw.Translate(position);
 		return drw;
 	}
 public:
 	vector<Vec2<float>> model;
 	Vec2<float> position{ 0.0f, 0.0f };
-	Mat<float> transform;
 	float scale = 1.0f;
 	float angle;
 	Color color;

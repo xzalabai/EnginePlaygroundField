@@ -1,11 +1,9 @@
 #pragma once
-//#include "Vec3.h"
 
 template <typename T>
 class Vec2
 {
 public:
-	Vec2() = default;
 	Vec2(T x, T y) :
 		x(x), y(y)
 	{}
@@ -14,16 +12,6 @@ public:
 	T Y() const { return y; }
 	void SetX(T newX) { x = newX; }
 	void SetY(T newY) { y = newY; }
-
-	//explicit Vec2(const Vec3<T> vec3)
-	//{
-	//	return Vec2(vec3.X(), vec3.Y());
-	//}
-
-	//explicit operator Vec3<T>() const 
-	//{
-	//	return Vec3<T>{ x, y, 1 };
-	//}
 
 	Vec2& operator+=(const Vec2& rhs)
 	{
@@ -105,6 +93,6 @@ public:
 	}
 
 private:
-	T x = 0;
-	T y = 0;
+	T x;
+	T y;
 };
