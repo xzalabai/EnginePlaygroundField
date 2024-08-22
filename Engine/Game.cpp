@@ -38,40 +38,54 @@ Game::Game(MainWindow& wnd)
 	// BALLS -------------------------------------------------------------------------------
 	entities.emplace_back(Entity{ { {80.0f, 20.0f}, {-300.0f, -90.0f }}, {0.0f, 0.0f} });
 	//vector<Vec2<float>> ballShape = ;
-	Ball b({ 0.0f, 20.0f }, 5, {0,-100});
+	Ball b({ 0.0f, 20.0f }, 5, {0,-150});
+	Ball b1({ 0.0f, 20.0f }, 3, {37,-135});
+	Ball b2({ 0.0f, 10.0f }, 7, {-20,-50});
+	Ball b3({ 0.0f, 15.0f }, 4, {70,-120});
+	Ball b4({ 0.0f, 15.0f }, 5, {15,-40});
+	Ball b5({ 0.0f, 10.0f }, 2, {0,-70});
+	Ball b6({ 0.0f, 5.0f }, 5, {-30,-150});
+	Ball b7({ 0.0f, 5.0f }, 3, {-120,-20});
 	balls.emplace_back(b);
+	balls.push_back(b1);
+	balls.push_back(b2);
+	balls.push_back(b3);
+	balls.push_back(b4);
+	balls.push_back(b5);
+	balls.push_back(b6);
+	balls.push_back(b7);
 
 
 	// -------------------------------------------------------------------------------------
 	// STARS -------------------------------------------------------------------------------
 	// -------------------------------------------------------------------------------------
-	//std::random_device rd;
-	//std::mt19937 mt(rd());
-	//std::uniform_real_distribution<double> dist(-1500.0, 1500.0);
+	std::random_device rd;
+	std::mt19937 mt(rd());
+	std::uniform_real_distribution<double> dist(-1500.0, 1500.0);
 
-	//for (int i = 0; i < 500; )
-	//{
-	//	Star newStar = StarGenerator::MakeRandomStar(make_pair(0.0f, 1.0f), make_pair(10.0f, 100.0f), make_pair(1.0f, 6.0f), make_pair(4.0f,8.0f));
-	//	newStar.SetPosition(Vec2<float>((float)dist(mt), (float)dist(mt)));
-	//	bool bOverlap = false;
-	//	for (auto& otherStar : stars)
-	//	{
-	//		if (Rect::doOverlap(
-	//			newStar.boundingBox.GetUpLeft(),
-	//			newStar.boundingBox.GetBottomRight(),
-	//			otherStar.boundingBox.GetUpLeft(),
-	//			otherStar.boundingBox.GetBottomRight()))
-	//		{
-	//			bOverlap = true;
-	//			break;
-	//		}
-	//	}
-	//	if (!bOverlap)
-	//	{
-	//		stars.emplace_back(newStar);
-	//		++i;
-	//	}
-	//}
+	for (int i = 0; i < 1; )
+	{
+		Star newStar = StarGenerator::MakeRandomStar(make_pair(0.0f, 1.0f), make_pair(10.0f, 100.0f), make_pair(1.0f, 6.0f), make_pair(4.0f,8.0f));
+		newStar.SetPosition(Vec2<float>((float)dist(mt), (float)dist(mt)));
+		bool bOverlap = false;
+		for (auto& otherStar : stars)
+		{
+			if (Rect::doOverlap(
+				newStar.boundingBox.GetUpLeft(),
+				newStar.boundingBox.GetBottomRight(),
+				otherStar.boundingBox.GetUpLeft(),
+				otherStar.boundingBox.GetBottomRight()))
+			{
+				bOverlap = true;
+				break;
+			}
+		}
+		if (!bOverlap)
+		{
+			stars.emplace_back(newStar);
+			++i;
+		}
+	}
 }
 
 void Game::Go()
@@ -127,13 +141,14 @@ void Game::UpdateModel()
 	}
 
 	// STARS ------------------------------
-	//for (auto& s : stars)
-	//{
-	//	s.Update(dt);
-	//}
+	for (auto& s : stars)
+	{
+		s.Update(dt);
+	}
 
 	// ROTATING STAR
 	rotatingStar = StarGenerator::MakeStar(10, 4);
+//	rotatingStar.emplace_back(StarGenerator::MakeStar(10, 4));
 
 	const float theta = PI * t;
 	for (auto& pt : rotatingStar)
@@ -145,29 +160,29 @@ void Game::UpdateModel()
 void Game::ComposeFrame()
 {
 	// PLANK
-	//CoordinateTransformer ct{ gfx };
-	//for (auto& e : entities)
-	//{
-	//	cam.Draw(e.GetDrawable());
-	//}
+	CoordinateTransformer ct{ gfx };
+	for (auto& e : entities)
+	{
+		cam.Draw(e.GetDrawable());
+	}
 
 	// BALLS ----------------------------------
-	//for (auto& b : balls)
-	//{
-	//	cam.Draw(b.GetDrawable());
-	//}
+	for (auto& b : balls)
+	{
+		cam.Draw(b.GetDrawable());
+	}
 
 	// ----------------------------------------
 	// STARS ----------------------------------
 	// ----------------------------------------
 
-	//for (auto& s : stars)
-	//{
-	//	vector<Vec2<float>> rect = s.boundingBox.GetAllPoints();
-	//	Entity m{ rect, {0.0, 0.0} };
-	//	cam.Draw(m.GetDrawable());
-	//	cam.Draw(s.GetDrawable());
-	//}
+	for (auto& s : stars)
+	{
+		vector<Vec2<float>> rect = s.boundingBox.GetAllPoints();
+		Entity m{ rect, {0.0, 0.0} };
+		cam.Draw(m.GetDrawable());
+		cam.Draw(s.GetDrawable());
+	}
 
 
 	//ROTATING STAR

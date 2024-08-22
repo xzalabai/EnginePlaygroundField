@@ -1,5 +1,2 @@
 ﻿  Game.cpp
-  Graphics.cpp
-  Main.cpp
-  MainWindow.cpp
-  Engine.vcxproj -> C:\workspace\Dev\ChillixEngine\chili_framework\x64\Debug\Engine.exe
+  Engine.vcxproj -> C:\workspace\Dev\ChillixEngine\chili_framework\EnginePlaygroundField\x64\Debug\Engine.exe
